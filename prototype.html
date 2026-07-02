@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AREC - Sistema de Agendamento</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            color: #667eea;
+            font-size: 28px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-info p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .user-info strong {
+            color: #333;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* MAIN CONTENT */
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* CALENDAR */
+        .calendar {
+            margin-top: 20px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-header h3 {
+            color: #667eea;
+        }
+
+        .calendar-header button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .calendar-header button:hover {
+            background: #764ba2;
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .weekday {
+            text-align: center;
+            font-weight: bold;
+            color: #667eea;
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+
+        .day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .day:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .day.available {
+            color: #667eea;
+        }
+
+        .day.unavailable {
+            color: #ccc;
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        .day.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        /* FORM */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 12px;
+            width: auto;
+        }
+
+        .btn-danger {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #ff5252;
+        }
+
+        /* RESERVATIONS LIST */
+        .reservations-list {
+            margin-top: 20px;
+        }
+
+        .reservation-item {
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reservation-info h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .reservation-info p {
+            color: #666;
+            font-size: 13px;
+            margin: 3px 0;
+        }
+
+        .reservation-status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* STATS */
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-box .number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-box .label {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .user-menu {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab {
+            background: none;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            color: #666;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <div class="logo">
+                <span class="logo-icon">🏢</span>
+                <div>
+                    <h1>AREC</h1>
+                    <p style="color: #666; font-size: 12px;">Sistema de Agendamento</p>
+                </div>
+            </div>
+            <div class="user-menu">
+                <div class="user-info">
+                    <p>Bem-vindo!</p>
+                    <strong>João Silva</strong>
+                </div>
+                <div class="avatar">JS</div>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <div class="content">
+            <!-- LEFT SIDE: CALENDAR -->
+            <div class="card">
+                <h2>📅 Selecione uma Data</h2>
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <h3>Julho 2026</h3>
+                        <div>
+                            <button onclick="changeMonth(-1)">← Anterior</button>
+                            <button onclick="changeMonth(1)" style="margin-left: 10px;">Próximo →</button>
+                        </div>
+                    </div>
+
+                    <div class="weekdays">
+                        <div class="weekday">Dom</div>
+                        <div class="weekday">Seg</div>
+                        <div class="weekday">Ter</div>
+                        <div class="weekday">Qua</div>
+                        <div class="weekday">Qui</div>
+                        <div class="weekday">Sex</div>
+                        <div class="weekday">Sáb</div>
+                    </div>
+
+                    <div class="days" id="calendar-days">
+                        <!-- Preenchido por JavaScript -->
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-box">
+                        <div class="number">12</div>
+                        <div class="label">Reservas Este Mês</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="number">8</div>
+                        <div class="label">Disponíveis</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE: FORM E RESERVATIONS -->
+            <div class="card">
+                <h2>🎫 Nova Reserva</h2>
+
+                <div class="form-group">
+                    <label>Data Selecionada</label>
+                    <input type="text" id="selected-date" placeholder="Nenhuma data selecionada" readonly style="background: #f5f5f5;">
+                </div>
+
+                <div class="form-group">
+                    <label for="resource">Recurso</label>
+                    <select id="resource">
+                        <option>-- Selecione um recurso --</option>
+                        <option>Salão de Festas</option>
+                        <option>Churrasqueira</option>
+                        <option>Quadra de Tênis</option>
+                        <option>Piscina</option>
+                        <option>Espaço Gourmet</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="start-time">Hora de Início</label>
+                        <input type="time" id="start-time">
+                    </div>
+                    <div class="form-group">
+                        <label for="end-time">Hora de Término</label>
+                        <input type="time" id="end-time">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="people">Número de Pessoas</label>
+                    <input type="number" id="people" placeholder="Ex: 20" min="1" max="500">
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Observações (opcional)</label>
+                    <textarea id="notes" placeholder="Adicione observações sobre sua reserva..."></textarea>
+                </div>
+
+                <button class="btn btn-primary" onclick="submitReservation()">✅ Confirmar Reserva</button>
+                <button class="btn btn-secondary" onclick="clearForm()">🔄 Limpar</button>
+
+                <!-- RECENT RESERVATIONS -->
+                <h3 style="margin-top: 30px; margin-bottom: 15px; color: #333;">📋 Suas Reservas Recentes</h3>
+                <div class="reservations-list">
+                    <div class="reservation-item">
+                        <div class="reservation-info">
+                            <h4>Salão de Festas</h4>
+                            <p>📅 25 de Julho, 2026</p>
+                            <p>⏰ 14:00 - 22:00 (8 horas)</p>
+                            <p>👥 35 pessoas</p>
+                        </div>
+                        <div>
+                            <span class="reservation-status status-confirmed">Confirmada</span>
+                            <button class="btn btn-danger btn-small" style="margin-top: 10px;">Cancelar</button>
+                        </div>
+                    </div>
+
+                    <div class="reservation-item">
+                        <div class="reservation-info">
+                            <h4>Churrasqueira</h4>
+                            <p>📅 18 de Julho, 2026</p>
+                            <p>⏰ 12:00 - 18:00 (6 horas)</p>
+                            <p>👥 20 pessoas</p>
+                        </div>
+                        <div>
+                            <span class="reservation-status status-pending">Pendente</span>
+                            <button class="btn btn-secondary btn-small" style="margin-top: 10px;">Editar</button>
+                        </div>
+                    </div>
+
+                    <div class="reservation-item">
+                        <div class="reservation-info">
+                            <h4>Quadra de Tênis</h4>
+                            <p>📅 10 de Julho, 2026</p>
+                            <p>⏰ 10:00 - 12:00 (2 horas)</p>
+                            <p>👥 4 pessoas</p>
+                        </div>
+                        <div>
+                            <span class="reservation-status status-confirmed">Confirmada</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedDate = null;
+
+        function generateCalendar() {
+            const calendar = document.getElementById('calendar-days');
+            calendar.innerHTML = '';
+
+            // Simulando disponibilidade
+            const unavailableDates = [5, 12, 15, 22, 29];
+
+            for (let day = 1; day <= 31; day++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'day';
+
+                if (unavailableDates.includes(day)) {
+                    dayEl.classList.add('unavailable');
+                    dayEl.textContent = day;
+                } else {
+                    dayEl.classList.add('available');
+                    dayEl.textContent = day;
+                    dayEl.onclick = () => selectDate(day, dayEl);
+                }
+
+                calendar.appendChild(dayEl);
+            }
+        }
+
+        function selectDate(day, element) {
+            document.querySelectorAll('.day.selected').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedDate = `2026-07-${String(day).padStart(2, '0')}`;
+            document.getElementById('selected-date').value = `${day} de Julho de 2026`;
+        }
+
+        function changeMonth(offset) {
+            alert('Funcionalidade de navegação entre meses disponível na versão final! 📅');
+        }
+
+        function submitReservation() {
+            const resource = document.getElementById('resource').value;
+            const startTime = document.getElementById('start-time').value;
+            const endTime = document.getElementById('end-time').value;
+            const people = document.getElementById('people').value;
+
+            if (!selectedDate || resource === '-- Selecione um recurso --' || !startTime || !endTime || !people) {
+                alert('⚠️ Por favor, preencha todos os campos obrigatórios!');
+                return;
+            }
+
+            alert(`✅ Reserva criada com sucesso!\n\n📅 Data: ${document.getElementById('selected-date').value}\n🏢 Recurso: ${resource}\n⏰ ${startTime} - ${endTime}\n👥 ${people} pessoas\n\nSua reserva foi enviada para aprovação.`);
+            clearForm();
+        }
+
+        function clearForm() {
+            document.getElementById('resource').value = '-- Selecione um recurso --';
+            document.getElementById('start-time').value = '';
+            document.getElementById('end-time').value = '';
+            document.getElementById('people').value = '';
+            document.getElementById('notes').value = '';
+            document.querySelectorAll('.day.selected').forEach(el => el.classList.remove('selected'));
+        }
+
+        // Inicializar
+        generateCalendar();
+    </script>
+</body>
+</html>
