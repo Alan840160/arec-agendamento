@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AREC - Sistema de Agendamento</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .logo span {
+            color: #764ba2;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: #ff5252;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+
+        .menu-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .menu-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .menu-item:hover {
+            background: #f0f0f0;
+        }
+
+        .menu-item.active {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+
+        .menu-item i {
+            margin-right: 8px;
+        }
+
+        /* ===== DASHBOARD CARDS ===== */
+        .dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        /* ===== STATS GRID ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* ===== RESERVAS TABLE ===== */
+        .reservas-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .reservas-table th {
+            background: #f5f5f5;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .reservas-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .reservas-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* ===== CALENDAR ===== */
+        .calendar {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .day-label {
+            text-align: center;
+            font-weight: bold;
+            color: #667eea;
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        .day-box {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 12px;
+        }
+
+        .day-box:hover {
+            background: #f0f0f0;
+        }
+
+        .day-box.available {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .day-box.unavailable {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .day-box.today {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 15px;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            color: #667eea;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <div class="logo">🏢 AREC<span>+</span></div>
+            <div class="user-info">
+                <div>
+                    <div style="font-weight: bold; color: #333;">João Silva</div>
+                    <div style="font-size: 12px; color: #666;">Associado</div>
+                </div>
+                <div class="user-avatar">JS</div>
+                <button class="logout-btn">Sair</button>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-grid">
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <div class="menu-title">📋 Menu</div>
+                <div class="menu-item active">📊 Dashboard</div>
+                <div class="menu-item">📅 Minhas Reservas</div>
+                <div class="menu-item">🏊 Recursos</div>
+                <div class="menu-item">📞 Suporte</div>
+                
+                <hr style="margin: 15px 0; border: none; border-top: 1px solid #ddd;">
+                
+                <div class="menu-title">⚙️ Admin</div>
+                <div class="menu-item">👥 Usuários</div>
+                <div class="menu-item">🎯 Recursos</div>
+                <div class="menu-item">✅ Aprovações</div>
+                <div class="menu-item">📊 Relatórios</div>
+            </aside>
+
+            <!-- DASHBOARD -->
+            <div class="dashboard">
+                <!-- STATS -->
+                <div class="card">
+                    <div class="card-title">📈 Resumo Rápido</div>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Reservas Ativas</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Pendentes</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">0</div>
+                            <div class="stat-label">Penalidades</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Recursos</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MINHAS RESERVAS -->
+                <div class="card">
+                    <div class="card-title">📅 Minhas Reservas</div>
+                    <div class="tabs">
+                        <button class="tab active">Todas</button>
+                        <button class="tab">Ativas</button>
+                        <button class="tab">Pendentes</button>
+                        <button class="tab">Canceladas</button>
+                    </div>
+                    <table class="reservas-table">
+                        <thead>
+                            <tr>
+                                <th>Recurso</th>
+                                <th>Data</th>
+                                <th>Horário</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>🏊 Piscina</td>
+                                <td>10/07/2026</td>
+                                <td>14:00 - 16:00</td>
+                                <td><span class="badge badge-approved">✓ Aprovada</span></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn-secondary">Editar</button>
+                                        <button class="btn-secondary">Cancelar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>🎾 Quadra de Tênis</td>
+                                <td>12/07/2026</td>
+                                <td>10:00 - 12:00</td>
+                                <td><span class="badge badge-pending">⏳ Pendente</span></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn-secondary">Editar</button>
+                                        <button class="btn-secondary">Cancelar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>🏸 Quadra de Badminton</td>
+                                <td>05/07/2026</td>
+                                <td>18:00 - 20:00</td>
+                                <td><span class="badge badge-cancelled">✗ Cancelada</span></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn-secondary">Reclassificar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- NOVA RESERVA -->
+                <div class="card">
+                    <div class="card-title">➕ Criar Nova Reserva</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                        <div>
+                            <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">Recurso</label>
+                            <select style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                                <option>-- Selecione --</option>
+                                <option>🏊 Piscina</option>
+                                <option>🎾 Quadra de Tênis</option>
+                                <option>🏸 Quadra de Badminton</option>
+                                <option>🍽️ Salão de Festas</option>
+                                <option>🏋️ Academia</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">Data</label>
+                            <input type="date" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div>
+                            <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">Horário Início</label>
+                            <input type="time" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div>
+                            <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">Horário Fim</label>
+                            <input type="time" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                    </div>
+                    <button class="btn-primary">Solicitar Reserva</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CALENDAR -->
+        <div class="calendar">
+            <div class="calendar-header">
+                <button style="background: none; border: none; font-size: 20px; cursor: pointer;">←</button>
+                <h2 style="color: #667eea;">Julho 2026</h2>
+                <button style="background: none; border: none; font-size: 20px; cursor: pointer;">→</button>
+            </div>
+            <div class="calendar-days">
+                <div class="day-label">Dom</div>
+                <div class="day-label">Seg</div>
+                <div class="day-label">Ter</div>
+                <div class="day-label">Qua</div>
+                <div class="day-label">Qui</div>
+                <div class="day-label">Sex</div>
+                <div class="day-label">Sáb</div>
+
+                <div class="day-box"></div>
+                <div class="day-box"></div>
+                <div class="day-box"></div>
+                <div class="day-box"></div>
+                <div class="day-box"></div>
+                <div class="day-box"></div>
+                <div class="day-box available">1</div>
+                <div class="day-box available">2</div>
+                <div class="day-box available">3</div>
+                <div class="day-box available">4</div>
+                <div class="day-box today">5</div>
+                <div class="day-box available">6</div>
+                <div class="day-box available">7</div>
+                <div class="day-box unavailable">8</div>
+                <div class="day-box available">9</div>
+                <div class="day-box available">10</div>
+                <div class="day-box available">11</div>
+                <div class="day-box available">12</div>
+                <div class="day-box available">13</div>
+                <div class="day-box available">14</div>
+                <div class="day-box available">15</div>
+                <div class="day-box available">16</div>
+                <div class="day-box available">17</div>
+                <div class="day-box unavailable">18</div>
+                <div class="day-box available">19</div>
+                <div class="day-box available">20</div>
+                <div class="day-box available">21</div>
+                <div class="day-box available">22</div>
+                <div class="day-box available">23</div>
+                <div class="day-box available">24</div>
+                <div class="day-box available">25</div>
+                <div class="day-box available">26</div>
+                <div class="day-box unavailable">27</div>
+                <div class="day-box available">28</div>
+                <div class="day-box available">29</div>
+                <div class="day-box available">30</div>
+                <div class="day-box available">31</div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>© 2026 AREC - Sistema de Gestão e Agendamento | Desenvolvido com ❤️ para a Associação Recreativa dos Colaboradores da Copasul</p>
+        </footer>
+    </div>
+</body>
+</html>
