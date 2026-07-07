@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AREC - Sistema de Gestão e Agendamento</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🏢 AREC</h1>
+                    <p>Sistema de Gestão e Agendamento</p>
+                </div>
+                <nav class="nav">
+                    <a href="#overview" class="nav-link active">Visão Geral</a>
+                    <a href="#status" class="nav-link">Status</a>
+                    <a href="#features" class="nav-link">Recursos</a>
+                    <a href="#stack" class="nav-link">Tecnologia</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Overview Section -->
+            <section id="overview" class="section overview-section">
+                <h2>📋 Visão Geral do Projeto</h2>
+                <div class="overview-grid">
+                    <div class="card card-info">
+                        <h3>🎯 Objetivo</h3>
+                        <p>Digitalizar e automatizar o processo de reservas de recursos recreativos, eliminando problemas como reservas duplicadas, falta de transparência e dificuldade de controle administrativo.</p>
+                    </div>
+                    <div class="card card-stats">
+                        <h3>📊 Estatísticas</h3>
+                        <div class="stats-grid">
+                            <div class="stat">
+                                <span class="stat-number">2</span>
+                                <span class="stat-label">Fases Planejadas</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">25%</span>
+                                <span class="stat-label">Concluído</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">12</span>
+                                <span class="stat-label">Features</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">3</span>
+                                <span class="stat-label">Etapas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Status Section -->
+            <section id="status" class="section status-section">
+                <h2>📈 Status das Fases</h2>
+                
+                <!-- Phase 1 -->
+                <div class="phase">
+                    <div class="phase-header">
+                        <h3>✅ Fase 1 - Backend Base</h3>
+                        <span class="phase-status in-progress">Em Progresso</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%;"></div>
+                    </div>
+                    <p class="progress-text">40% Concluído</p>
+                    <ul class="checklist">
+                        <li class="done">✓ Setup inicial Express</li>
+                        <li class="done">✓ Configuração PostgreSQL</li>
+                        <li class="done">✓ Estrutura de pastas</li>
+                        <li class="pending">⏳ Autenticação JWT</li>
+                        <li class="pending">⏳ CRUD de usuários</li>
+                        <li class="pending">⏳ CRUD de recursos</li>
+                        <li class="pending">⏳ Sistema de reservas</li>
+                    </ul>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="phase">
+                    <div class="phase-header">
+                        <h3>⏳ Fase 2 - Frontend</h3>
+                        <span class="phase-status planned">Planejado</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <p class="progress-text">0% Concluído</p>
+                    <ul class="checklist">
+                        <li class="pending">⏳ Setup React</li>
+                        <li class="pending">⏳ Login</li>
+                        <li class="pending">⏳ Dashboard</li>
+                        <li class="pending">⏳ Calendário de reservas</li>
+                    </ul>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="phase">
+                    <div class="phase-header">
+                        <h3>⏳ Fase 3 - Funcionalidades Avançadas</h3>
+                        <span class="phase-status planned">Planejado</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <p class="progress-text">0% Concluído</p>
+                    <ul class="checklist">
+                        <li class="pending">⏳ Notificações</li>
+                        <li class="pending">⏳ Relatórios</li>
+                        <li class="pending">⏳ Penalidades</li>
+                        <li class="pending">⏳ Auditoria</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section id="features" class="section features-section">
+                <h2>🏄 Recursos do Sistema</h2>
+                <div class="features-grid">
+                    <div class="feature-group">
+                        <h3>👥 Para Associados</h3>
+                        <ul class="features-list">
+                            <li>✅ Login seguro</li>
+                            <li>✅ Consultar disponibilidade</li>
+                            <li>✅ Criar reservas</li>
+                            <li>✅ Cancelar reservas</li>
+                            <li>✅ Histórico de reservas</li>
+                            <li>✅ Receber notificações</li>
+                        </ul>
+                    </div>
+                    <div class="feature-group">
+                        <h3>🔧 Para Administradores</h3>
+                        <ul class="features-list">
+                            <li>✅ Gerenciar usuários</li>
+                            <li>✅ Gerenciar recursos</li>
+                            <li>✅ Aprovar/rejeitar reservas</li>
+                            <li>✅ Aplicar penalidades</li>
+                            <li>✅ Consultar relatórios</li>
+                            <li>✅ Auditar movimentações</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tech Stack Section -->
+            <section id="stack" class="section stack-section">
+                <h2>🛠️ Stack Tecnológico</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h4>🖥️ Backend</h4>
+                        <ul>
+                            <li>Node.js</li>
+                            <li>Express.js</li>
+                            <li>PostgreSQL</li>
+                            <li>JWT</li>
+                            <li>bcryptjs</li>
+                            <li>Joi (Validation)</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h4>🎨 Frontend</h4>
+                        <ul>
+                            <li>React</li>
+                            <li>Next.js</li>
+                            <li>Tailwind CSS</li>
+                            <li>Axios</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h4>🐳 DevOps</h4>
+                        <ul>
+                            <li>Docker</li>
+                            <li>Docker Compose</li>
+                            <li>PostgreSQL (16-alpine)</li>
+                            <li>pgAdmin</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Architecture Section -->
+            <section class="section architecture-section">
+                <h2>🏗️ Arquitetura do Projeto</h2>
+                <div class="architecture-box">
+                    <pre><code>arec-agendamento/
+├── backend/              # API Express.js
+│   ├── src/
+│   │   ├── config/       # Configurações
+│   │   ├── controllers/  # Lógica de negócio
+│   │   ├── models/       # Modelos do banco
+│   │   ├── routes/       # Rotas da API
+│   │   ├── middleware/   # Middlewares
+│   │   ├── utils/        # Utilitários
+│   │   └── app.js        # App principal
+│   ├── docker-compose.yml
+│   ├── .env.example
+│   └── package.json
+│
+├── frontend/             # React + Next.js (em breve)
+│
+└── docs/                 # Documentação geral</code></pre>
+                </div>
+            </section>
+
+            <!-- Quick Start Section -->
+            <section class="section quickstart-section">
+                <h2>🚀 Quick Start</h2>
+                <div class="quickstart-box">
+                    <h3>Backend</h3>
+                    <pre><code>cd backend
+npm install
+cp .env.example .env
+docker-compose up -d
+npm run dev</code></pre>
+                    <p>🔗 API rodando em <code>http://localhost:3000</code></p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Desenvolvido com ❤️ para a AREC | Associação Recreativa dos Colaboradores da Copasul</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
