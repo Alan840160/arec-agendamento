@@ -3,6 +3,10 @@ const cors = require('cors');
 const helmet = require('helmet');
 require('dotenv').config();
 
+const authRoutes = require('./routes/authRoutes');
+const resourceRoutes = require('./routes/resourceRoutes');
+const errorHandler = require('./middleware/errorHandler');
+
 const app = express();
 
 // ====== MIDDLEWARES DE SEGURANÇA ======
@@ -15,6 +19,10 @@ app.use(cors({
 // ====== MIDDLEWARES DE PARSING ======
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// ====== ROTAS DA API ======
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/resources', resourceRoutes);
 
 // ====== ROTA DE SAÚDE ======
 app.get('/health', (req, res) => {
@@ -44,21 +52,17 @@ app.use((req, res) => {
 });
 
 // ====== TRATAMENTO DE ERROS GLOBAL ======
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({
-    error: err.message || 'Erro interno do servidor',
-    status: err.status || 500
-  });
-});
+app.use(errorHandler);
 
 // ====== INICIAR SERVIDOR ======
-const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || 'localhost';
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  const HOST = process.env.HOST || 'localhost';
 
-app.listen(PORT, () => {
-  console.log(`\n✅ Servidor rodando em http://${HOST}:${PORT}`);
-  console.log(`📊 Health check: http://${HOST}:${PORT}/health\n`);
-});
+  app.listen(PORT, () => {
+    console.log(`\n✅ Servidor rodando em http://${HOST}:${PORT}`);
+    console.log(`📊 Health check: http://${HOST}:${PORT}/health\n`);
+  });
+}
 
 module.exports = app;

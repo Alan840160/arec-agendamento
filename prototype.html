@@ -13,9 +13,11 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            margin: 0;
             padding: 20px;
+            background: linear-gradient(135deg, #233D0B 0%, #466812 50%, #5A8B31 100%);
+            color: #2E2E2E;
         }
 
         .container {
@@ -25,14 +27,15 @@
 
         /* HEADER */
         header {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            background: #F8F9F4;
+            padding: 28px 32px;
+            border-radius: 18px;
+            box-shadow: 0 18px 50px rgba(16, 16, 16, 0.12);
+            margin-bottom: 36px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border: 1px solid rgba(71, 104, 18, 0.15);
         }
 
         .logo {
@@ -42,12 +45,15 @@
         }
 
         .logo h1 {
-            color: #667eea;
-            font-size: 28px;
+            color: #233D0B;
+            font-size: 32px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .logo-icon {
-            font-size: 32px;
+            font-size: 34px;
+            transform: translateY(2px);
         }
 
         .user-menu {
@@ -61,18 +67,20 @@
         }
 
         .user-info p {
-            color: #666;
-            font-size: 14px;
+            color: #2E2E2E;
+            font-size: 15px;
+            margin-bottom: 2px;
         }
 
         .user-info strong {
-            color: #333;
+            color: #233D0B;
+            font-size: 18px;
         }
 
         .avatar {
             width: 45px;
             height: 45px;
-            background: #667eea;
+            background: #305010;
             color: white;
             border-radius: 50%;
             display: flex;
@@ -89,10 +97,11 @@
         }
 
         .card {
-            background: white;
-            border-radius: 10px;
+            background: #F8F9F4;
+            border-radius: 14px;
             padding: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(16, 16, 16, 0.08);
+            border: 1px solid rgba(48, 48, 16, 0.12);
         }
 
         .card h2 {
@@ -106,33 +115,40 @@
 
         /* CALENDAR */
         .calendar {
-            margin-top: 20px;
+            margin-top: 24px;
         }
 
         .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            gap: 24px;
+            margin-bottom: 26px;
         }
 
         .calendar-header h3 {
-            color: #667eea;
+            color: #233D0B;
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 0.5px;
         }
 
         .calendar-header button {
-            background: #667eea;
+            background: #507010;
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 12px 20px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 14px;
-            transition: background 0.3s;
+            font-weight: 700;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
 
         .calendar-header button:hover {
-            background: #764ba2;
+            background: #709010;
+            transform: translateY(-1px);
         }
 
         .weekdays {
@@ -145,7 +161,7 @@
         .weekday {
             text-align: center;
             font-weight: bold;
-            color: #667eea;
+            color: #233D0B;
             padding: 10px;
             font-size: 12px;
         }
@@ -170,12 +186,12 @@
         }
 
         .day:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
+            border-color: #507010;
+            background: #f0f3e8;
         }
 
         .day.available {
-            color: #667eea;
+            color: #507010;
         }
 
         .day.unavailable {
@@ -185,9 +201,9 @@
         }
 
         .day.selected {
-            background: #667eea;
+            background: #709010;
             color: white;
-            border-color: #667eea;
+            border-color: #709010;
         }
 
         /* FORM */
@@ -197,7 +213,7 @@
 
         .form-group label {
             display: block;
-            color: #333;
+            color: #233D0B;
             font-weight: 600;
             margin-bottom: 8px;
             font-size: 14px;
@@ -219,7 +235,7 @@
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #507010;
         }
 
         .form-group textarea {
@@ -246,14 +262,14 @@
         }
 
         .btn-primary {
-            background: #667eea;
+            background: #507010;
             color: white;
         }
 
         .btn-primary:hover {
-            background: #764ba2;
+            background: #709010;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 12px rgba(112, 144, 16, 0.2);
         }
 
         .btn-secondary {
@@ -287,23 +303,24 @@
         }
 
         .reservation-item {
-            background: #f9f9f9;
-            border-left: 4px solid #667eea;
-            padding: 15px;
+            background: #F8F9F4;
+            border-left: 4px solid #A4B23B;
+            padding: 18px;
             margin-bottom: 15px;
-            border-radius: 5px;
+            border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 8px 18px rgba(16, 16, 16, 0.05);
         }
 
         .reservation-info h4 {
-            color: #333;
+            color: #233D0B;
             margin-bottom: 5px;
         }
 
         .reservation-info p {
-            color: #666;
+            color: #2E2E2E;
             font-size: 13px;
             margin: 3px 0;
         }
@@ -341,10 +358,10 @@
         }
 
         .stat-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #507010 0%, #709010 40%, #A4B23B 100%);
             color: white;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 12px;
             text-align: center;
         }
 
@@ -393,15 +410,15 @@
             border: none;
             padding: 12px 20px;
             cursor: pointer;
-            color: #666;
+            color: #2E2E2E;
             font-weight: 600;
             border-bottom: 3px solid transparent;
             transition: all 0.3s;
         }
 
         .tab.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
+            color: #233D0B;
+            border-bottom-color: #507010;
         }
 
         .tab-content {
