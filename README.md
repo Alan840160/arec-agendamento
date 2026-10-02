@@ -1,74 +1,44 @@
-# 🏢 AREC - Sistema de Gestão e Agendamento
+# AREC - Sistema de Gestão e Agendamento
 
-> Sistema web responsivo para gerenciar reservas de recursos recreativos da Associação Recreativa dos Colaboradores da Copasul (AREC).
+Aplicação web responsiva para apoiar o processo de reservas de recursos recreativos da Associação Recreativa dos Colaboradores da Copasul (AREC).
 
-## 📋 Objetivo
+## Módulo 2 — Frontend
 
-Digitalizar e automatizar o processo de reservas de recursos recreativos, eliminando problemas como:
-- ❌ Reservas duplicadas
-- ❌ Falta de transparência
-- ❌ Demora na confirmação
-- ❌ Dificuldade de controle administrativo
-- ❌ Conflitos entre associados
+O frontend do MVP foi desenvolvido com **Vue 3, Vite, JavaScript, HTML5 semântico e CSS3 responsivo**. Esta implementação dá continuidade aos requisitos levantados no Módulo 1 do Projeto Integrador.
 
-## 🏄 Recursos do Sistema
+### Funcionalidades implementadas
 
-### Para Associados
-- ✅ Login seguro
-- ✅ Consultar disponibilidade
-- ✅ Criar reservas
-- ✅ Cancelar reservas
-- ✅ Histórico de reservas
-- ✅ Receber notificações
+- Solicitação de nova reserva por recurso, data e horário.
+- Validação de campos obrigatórios.
+- Validação do horário de término em relação ao início.
+- Detecção de conflito de horário para o mesmo recurso e data.
+- Listagem das reservas.
+- Cancelamento de reserva.
+- Resumo de reservas ativas e recursos disponíveis.
+- Interface responsiva para diferentes tamanhos de tela.
+- Estrutura semântica e recursos básicos de acessibilidade.
 
-### Para Administradores
-- ✅ Gerenciar usuários
-- ✅ Gerenciar recursos
-- ✅ Aprovar/rejeitar reservas
-- ✅ Aplicar penalidades
-- ✅ Consultar relatórios
-- ✅ Auditar movimentações
+> Nesta versão do frontend, os dados são mantidos em memória. A persistência definitiva e a integração completa com o backend permanecem como evolução do projeto.
 
-## 🏗️ Estrutura do Projeto
+## Estrutura principal
 
 ```
 arec-agendamento/
-├── backend/              # API Express.js
+├── backend/                 # Estrutura base da API Express.js
+├── frontend/                # Aplicação Vue 3 + Vite
 │   ├── src/
-│   │   ├── config/       # Configurações
-│   │   ├── controllers/  # Lógica de negócio
-│   │   ├── models/       # Modelos do banco
-│   │   ├── routes/       # Rotas da API
-│   │   ├── middleware/   # Middlewares
-│   │   ├── utils/        # Utilitários
-│   │   └── app.js        # App principal
-│   ├── docker-compose.yml
-│   ├── .env.example
-│   └── README.md         # Documentação backend
-│
-├── frontend/             # React + Next.js (em breve)
-│
-└── docs/                 # Documentação geral
-    ├── ARQUITETURA.md
-    ├── API.md
-    └── SETUP.md
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── App.vue
+│   │   └── main.js
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.js
+├── docs/
+└── .github/workflows/       # Validação automatizada do frontend
 ```
 
-## 🚀 Quick Start
-
-### Backend
-
-```bash
-cd backend
-npm install
-cp .env.example .env
-docker-compose up -d
-npm run dev
-```
-
-API rodando em `http://localhost:3000`
-
-### Frontend (em breve)
+## Executar o frontend
 
 ```bash
 cd frontend
@@ -76,62 +46,50 @@ npm install
 npm run dev
 ```
 
-## 🛠️ Tecnologias
+Para validar a versão de produção:
 
-### Backend
-- **Express.js** - Framework web
-- **Node.js** - Runtime JavaScript
-- **PostgreSQL** - Banco de dados
-- **JWT** - Autenticação
+```bash
+npm run build
+```
+
+## Tecnologias
 
 ### Frontend
-- **React** - UI library
-- **Next.js** - Framework React
-- **Tailwind CSS** - Estilos
-- **Axios** - HTTP client
+- Vue 3
+- Vite
+- JavaScript
+- HTML5
+- CSS3
 
-### DevOps
-- **Docker** - Containerização
-- **Docker Compose** - Orquestração
+### Backend — estrutura existente
+- Node.js
+- Express.js
+- PostgreSQL
 
-## 📚 Documentação
+### Validação e publicação
+- GitHub Actions para validação do build
+- Vercel para publicação do frontend
 
-- [📖 Arquitetura do Sistema](./docs/ARQUITETURA.md)
-- [🔍 Documentação da API](./docs/API.md)
-- [⚙️ Guia de Setup](./docs/SETUP.md)
-- [🎯 Backend Express](./backend/README.md)
+## Status
 
-## 📝 Status do Projeto
+### Frontend do Módulo 2
+- [x] Configuração Vue 3 + Vite
+- [x] Interface responsiva
+- [x] Formulário de reserva
+- [x] Validação de horários
+- [x] Validação de conflitos
+- [x] Listagem de reservas
+- [x] Cancelamento
+- [x] Build automatizado validado
+- [x] Implantação web validada
 
-### ✅ Fase 1 - Backend Base (Em Progresso)
-- [x] Setup inicial Express
-- [x] Configuração PostgreSQL
-- [x] Estrutura de pastas
-- [ ] Autenticação JWT
-- [ ] CRUD de usuários
-- [ ] CRUD de recursos
-- [ ] Sistema de reservas
-
-### ⏳ Fase 2 - Frontend
-- [ ] Setup React
-- [ ] Login
-- [ ] Dashboard
-- [ ] Calendário de reservas
-
-### ⏳ Fase 3 - Funcionalidades Avançadas
+### Evoluções previstas
+- [ ] Persistência das reservas no backend
+- [ ] Autenticação
+- [ ] Painel administrativo
 - [ ] Notificações
-- [ ] Relatórios
-- [ ] Penalidades
-- [ ] Auditoria
+- [ ] Relatórios e auditoria
 
-## 👥 Contribuidores
+## Autor
 
-- Alan840160 - Desenvolvedor
-
-## 📞 Contato
-
-Para dúvidas ou sugestões, abra uma **Issue** no GitHub.
-
----
-
-**Desenvolvido com ❤️ para a AREC**
+Alan da Silva Oliveira — Tecnologia da Informação / UFMS.
