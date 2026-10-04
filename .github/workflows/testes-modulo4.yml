@@ -20,9 +20,9 @@ jobs:
           node-version: 20
 
       - name: Instalar dependencias
-        working-directory: front-end
+        working-directory: frontend
         run: npm install
 
       - name: Executar testes automatizados
-        working-directory: front-end
+        working-directory: frontend
         run: npm test
