@@ -10,11 +10,11 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@vitejs/plugin-vue": "latest",
-    "vite": "latest",
-    "vue": "latest"
+    "@vitejs/plugin-vue": "6.0.1",
+    "vite": "7.1.7",
+    "vue": "3.5.22"
   },
   "devDependencies": {
-    "vitest": "latest"
+    "vitest": "3.2.4"
   }
 }
